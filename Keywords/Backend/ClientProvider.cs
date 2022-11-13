@@ -1,36 +1,53 @@
 using System;
 using System.Net.Http.Headers;
 using Helpers;
+using RestSharp;
 
 namespace DataProvider.Backend
 {
     public static class ClientProvider
     {
-        public static HttpClient CreateClient(string url)
+        public static RestClient CreateRestClient(string url)
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(url);
-            return client;
+            return new RestClient(url);
         }
 
-        public static async Task<HttpResponseMessage> Post(string url, object serializableObject)
+        public static async Task<RestResponse> Post(string url, object serializableObject)
         {
-            HttpClient client = CreateClient(url);
-            string jsonString = JsonSerializer.SerializeObject(serializableObject);
-            StringContent stringContent = ContentHandler.CreateStringContent(jsonString);
-            return await client.PostAsync(client.BaseAddress, stringContent);
+            RestClient client = CreateRestClient(url);
+            string requestBody = JsonSerializer.SerializeObject(serializableObject);
+            RestRequest request = new RestRequest(requestBody);
+            CancellationToken cancellationToken = default;
+            RestResponse response = await client.PostAsync(request, cancellationToken);
+
+            return response;
         }
 
-        public static async Task<HttpResponseMessage> Get(string url)
+        public static async Task<RestResponse> Get(string url)
         {
-            HttpClient client = CreateClient(url);
-            return await client.GetAsync(client.BaseAddress);
+            RestClient client = CreateRestClient(url);
+            RestRequest request = new RestRequest();
+            CancellationToken cancellationToken = default;
+            RestResponse response = await client.GetAsync(request, cancellationToken);
+
+            return response;
         }
 
-        public static async Task<HttpResponseMessage> Delete(string url)
+        public static async Task<RestResponse> Delete(string url, object? serializableObject)
         {
-            HttpClient client = CreateClient(url);
-            return await client.DeleteAsync(client.BaseAddress);
+            string requestBody = null;
+
+            if(serializableObject != null)
+            {
+                requestBody = JsonSerializer.SerializeObject(serializableObject);
+            }
+
+            RestClient client = CreateRestClient(url);
+            RestRequest request = new RestRequest(requestBody);
+            CancellationToken cancellationToken = default;
+            RestResponse response = await client.DeleteAsync(request, cancellationToken);
+
+            return response;
         }
     }
 }

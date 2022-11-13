@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using System.Diagnostics;
 
-namespace Keywords.UI.Helpers
+namespace Helpers
 {
     public static class TestCleanup
     {

@@ -2,7 +2,7 @@ using Helpers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace Keywords.UI.Keywords
+namespace Keywords.Frontend.Keywords
 {
     public class CoreKeywords
     {

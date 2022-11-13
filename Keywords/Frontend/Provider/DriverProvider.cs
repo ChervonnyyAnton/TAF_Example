@@ -1,7 +1,7 @@
 using OpenQA.Selenium.Chrome;
 using WebDriverManager.DriverConfigs.Impl;
 
-namespace Keywords.UI.Provider
+namespace Keywords.Frontend.Provider
 {
     public static class DriverProvider
     {

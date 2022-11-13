@@ -1,7 +1,7 @@
 using System;
 using OpenQA.Selenium;
 
-namespace DataProvider.Frontend
+namespace DataProvider.Frontend.DataObjects
 {
     public static class MainPageObjects
     {
