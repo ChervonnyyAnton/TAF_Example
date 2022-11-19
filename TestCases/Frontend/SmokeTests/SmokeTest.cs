@@ -8,6 +8,6 @@ public class SmokeTest : TestBase
     public void PageSmokeTest()
     {
         Keywords.GoToUrl(TestData.Url);
-        Keywords.GetPageTitle().Should().Be("undefined");
+        Keywords.GetTitle().Should().Be("undefined");
     }
 }

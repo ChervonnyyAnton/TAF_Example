@@ -24,13 +24,13 @@ namespace Keywords.Frontend.Keywords
             return this;
         }
 
-        public string GetPageUrl()
+        public string GetUrl()
         {
             Wait.Until(ExpectedConditions.UrlMatches(NotEmptyOrWhitespaceRegex));
             return Driver.Url;
         }
 
-        public string GetPageTitle()
+        public string GetTitle()
         {
             Wait.Until(ExpectedConditions.TitleMatches(NotEmptyOrWhitespaceRegex));
             return Driver.Title;

@@ -75,11 +75,11 @@ namespace Helpers
             {
                 try
                 {
-                    return ElementIfVisible(driver.FindElement(locator));
+                    return ElementIfVisible(driver.FindElement(locator))!;
                 }
                 catch (StaleElementReferenceException)
                 {
-                    return null;
+                    return null!;
                 }
             };
         }
