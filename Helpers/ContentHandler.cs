@@ -6,11 +6,13 @@ namespace Helpers
     {
         public static FormUrlEncodedContent CreateEncodedContent(string clientId, string grantType, string clientSecret, string scope)
         {
-            var form = new Dictionary<string, string>();
-            form.Add("grant_type", grantType);
-            form.Add("client_id", clientId);
-            form.Add("client_secret", clientSecret);
-            form.Add("scope", scope);
+            var form = new Dictionary<string, string>
+            {
+                { "grant_type", grantType },
+                { "client_id", clientId },
+                { "client_secret", clientSecret },
+                { "scope", scope }
+            };
 
             FormUrlEncodedContent content = new FormUrlEncodedContent(form);
             return content;

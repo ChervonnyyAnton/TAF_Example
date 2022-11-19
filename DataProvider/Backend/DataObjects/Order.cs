@@ -1,5 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace DataProvider.Backend.DataObjects
 {
@@ -12,23 +11,23 @@ namespace DataProvider.Backend.DataObjects
     public class Order
     {
         [JsonProperty("firstName")]
-        string FirstName { get; set; }
+        string? FirstName { get; set; }
         [JsonProperty("lastName")]
-        string LastName { get; set; }
+        string? LastName { get; set; }
         [JsonProperty("address")]
-        string Address { get; set; }
+        string? Address { get; set; }
         [JsonProperty("metroStation")]
-        string Station { get; set; }
+        string? Station { get; set; }
         [JsonProperty("phone")]
-        string Phone { get; set; }
+        string? Phone { get; set; }
         [JsonProperty("rentTime")]
         int RentTime { get; set; }
         [JsonProperty("deliveryDate")]
-        string DeliveryDate { get; set; }
+        string? DeliveryDate { get; set; }
         [JsonProperty("comment")]
-        string Comment { get; set; }
+        string? Comment { get; set; }
         [JsonProperty("color")]
-        string[] Color { get; set; }
+        string[]? Color { get; set; }
 
         public Order()
         {
@@ -82,7 +81,7 @@ namespace DataProvider.Backend.DataObjects
                 color);
         }
 
-        public Order ManualSetupOrder(string firstName, string lastName, string address, string station, string phone, int rentTime, DateTime deliveryDate, string comment, string[] color)
+        public Order ManualSetupOrder(string? firstName, string? lastName, string? address, string? station, string? phone, int rentTime, DateTime deliveryDate, string comment, string[] color)
         {
             this.FirstName = firstName;
             this.LastName = lastName;

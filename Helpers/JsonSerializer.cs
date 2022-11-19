@@ -4,7 +4,7 @@ namespace Helpers
 {
     public static class JsonSerializer
     {
-        public static T DeserializeResponse<T>(HttpResponseMessage response) where T : class
+        public static T? DeserializeResponse<T>(HttpResponseMessage response) where T : class
         {
             string json = ContentHandler.GetResponseContent(response);
             return JsonConvert.DeserializeObject<T>(json);

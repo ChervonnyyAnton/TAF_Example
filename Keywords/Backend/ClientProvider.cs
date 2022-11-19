@@ -1,9 +1,7 @@
-using System;
-using System.Net.Http.Headers;
 using Helpers;
 using RestSharp;
 
-namespace DataProvider.Backend
+namespace Keywords.Backend
 {
     public static class ClientProvider
     {
@@ -35,7 +33,7 @@ namespace DataProvider.Backend
 
         public static async Task<RestResponse> Delete(string url, object? serializableObject)
         {
-            string requestBody = null;
+            string requestBody = String.Empty;
 
             if(serializableObject != null)
             {

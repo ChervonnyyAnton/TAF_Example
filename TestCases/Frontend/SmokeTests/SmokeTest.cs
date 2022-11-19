@@ -1,14 +1,13 @@
 using DataProvider.Frontend.DataObjects;
 
-namespace TestCases.Frontend
+namespace TestCases.Frontend;
+
+public class SmokeTest : TestBase
 {
-    public class SmokeTest : TestBase
+    [Fact]
+    public void PageSmokeTest()
     {
-        [Fact]
-        public void PageSmokeTest()
-        {
-            Keywords.GoToUrl(TestData.Url);
-            Keywords.GetPageTitle().Should().Be("undefined");
-        }
+        Keywords.GoToUrl(TestData.Url);
+        Keywords.GetPageTitle().Should().Be("undefined");
     }
 }

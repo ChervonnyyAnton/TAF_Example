@@ -1,5 +1,3 @@
-using System;
-using DataProvider.Backend;
 using DataProvider.Backend.DataObjects;
 using RestSharp;
 

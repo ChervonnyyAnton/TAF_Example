@@ -1,7 +1,6 @@
-﻿using System;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
-namespace DataProvider.Frontend.DataObjects
+namespace DataProvider.Frontend.PageObjects
 {
     public static class OrderPageObjects
     {

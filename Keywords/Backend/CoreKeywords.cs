@@ -1,6 +1,5 @@
-using System;
 using DataProvider.Backend;
-
+using DataProvider.Backend.ClientCredentials;
 
 namespace Keywords.Backend
 {

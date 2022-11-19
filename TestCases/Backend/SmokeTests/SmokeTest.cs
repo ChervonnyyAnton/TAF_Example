@@ -8,7 +8,7 @@ namespace TestCases.Backend
         public async Task PingPongCallTest()
         {
             RestResponse response = await Endpoint.PingAsync();
-            response.Content.ToString().Should().Be("pong;");
+            response.Content.Should().Be("pong;");
         }
     }
 }

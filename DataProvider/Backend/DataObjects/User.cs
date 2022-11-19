@@ -12,11 +12,11 @@ namespace DataProvider.Backend.DataObjects
     public class User
     {
         [JsonProperty("firstName")]
-        string FirstName { get; set; }
+        string? FirstName { get; set; }
         [JsonProperty("login")]
-        string Login { get; set; }
+        string? Login { get; set; }
         [JsonProperty("password")]
-        string Password { get; set; }
+        string? Password { get; set; }
 
         public User()
         {
@@ -46,7 +46,7 @@ namespace DataProvider.Backend.DataObjects
             return CreateUserManual("Иван", "Ivan", null);
         }
 
-        public User CreateUserManual(string firstName, string login, string password)
+        public User CreateUserManual(string? firstName, string? login, string? password)
         {
             this.FirstName = firstName;
             this.Login = login;

@@ -8,12 +8,20 @@ namespace Helpers
     {
         public static Func<IWebDriver, bool> TitleIs(string title)
         {
-            return (IWebDriver driver) => title == driver.Title;
+            return (driver) =>
+            {
+                if (driver == null) throw new ArgumentNullException(nameof(driver));
+                return title == driver.Title;
+            };
         }
 
         public static Func<IWebDriver, bool> TitleContains(string title)
         {
-            return (IWebDriver driver) => driver.Title.Contains(title);
+            return (driver) =>
+            {
+                if (driver == null) throw new ArgumentNullException(nameof(driver));
+                return driver.Title.Contains(title);
+            };
         }
 
         public static Func<IWebDriver, bool> TitleMatches(string regex)
@@ -27,12 +35,20 @@ namespace Helpers
 
         public static Func<IWebDriver, bool> UrlToBe(string url)
         {
-            return (IWebDriver driver) => driver.Url.ToLowerInvariant().Equals(url.ToLowerInvariant());
+            return (driver) =>
+            {
+                if (driver == null) throw new ArgumentNullException(nameof(driver));
+                return driver.Url.ToLowerInvariant().Equals(url.ToLowerInvariant());
+            };
         }
 
         public static Func<IWebDriver, bool> UrlContains(string fraction)
         {
-            return (IWebDriver driver) => driver.Url.ToLowerInvariant().Contains(fraction.ToLowerInvariant());
+            return (driver) =>
+            {
+                if (driver == null) throw new ArgumentNullException(nameof(driver));
+                return driver.Url.ToLowerInvariant().Contains(fraction.ToLowerInvariant());
+            };
         }
 
         public static Func<IWebDriver, bool> UrlMatches(string regex)
@@ -46,7 +62,11 @@ namespace Helpers
 
         public static Func<IWebDriver, IWebElement> ElementExists(By locator)
         {
-            return (IWebDriver driver) => driver.FindElement(locator);
+            return (driver) =>
+            {
+                if (driver == null) throw new ArgumentNullException(nameof(driver));
+                return driver.FindElement(locator);
+            };
         }
 
         public static Func<IWebDriver, IWebElement> ElementIsVisible(By locator)
@@ -71,16 +91,16 @@ namespace Helpers
                 try
                 {
                     ReadOnlyCollection<IWebElement> readOnlyCollection = driver.FindElements(locator);
-                    if (readOnlyCollection.Any((IWebElement element) => !element.Displayed))
+                    if (readOnlyCollection.Any((element) => !element.Displayed))
                     {
-                        return null;
+                        return null!;
                     }
 
-                    return readOnlyCollection.Any() ? readOnlyCollection : null;
+                    return (readOnlyCollection.Any() ? readOnlyCollection : null)!;
                 }
                 catch (StaleElementReferenceException)
                 {
-                    return null;
+                    return null!;
                 }
             };
         }
@@ -91,16 +111,16 @@ namespace Helpers
             {
                 try
                 {
-                    if (elements.Any((IWebElement element) => !element.Displayed))
+                    if (elements.Any((element) => !element.Displayed))
                     {
-                        return null;
+                        return null!;
                     }
 
-                    return elements.Any() ? elements : null;
+                    return (elements.Any() ? elements : null)!;
                 }
                 catch (StaleElementReferenceException)
                 {
-                    return null;
+                    return null!;
                 }
             };
         }
@@ -112,11 +132,11 @@ namespace Helpers
                 try
                 {
                     ReadOnlyCollection<IWebElement> readOnlyCollection = driver.FindElements(locator);
-                    return readOnlyCollection.Any() ? readOnlyCollection : null;
+                    return (readOnlyCollection.Any() ? readOnlyCollection : null)!;
                 }
                 catch (StaleElementReferenceException)
                 {
-                    return null;
+                    return null!;
                 }
             };
         }
@@ -191,7 +211,7 @@ namespace Helpers
                 }
                 catch (NoSuchFrameException)
                 {
-                    return null;
+                    return null!;
                 }
             };
         }
@@ -207,7 +227,7 @@ namespace Helpers
                 }
                 catch (NoSuchFrameException)
                 {
-                    return null;
+                    return null!;
                 }
             };
         }
@@ -260,19 +280,19 @@ namespace Helpers
         {
             return delegate (IWebDriver driver)
             {
-                IWebElement webElement = ElementIfVisible(driver.FindElement(locator));
+                IWebElement? webElement = ElementIfVisible(driver.FindElement(locator));
                 try
                 {
-                    if (webElement != null && webElement.Enabled)
+                    if (webElement is { Enabled: true })
                     {
                         return webElement;
                     }
 
-                    return null;
+                    return null!;
                 }
                 catch (StaleElementReferenceException)
                 {
-                    return null;
+                    return null!;
                 }
             };
         }
@@ -283,21 +303,21 @@ namespace Helpers
             {
                 try
                 {
-                    if (element != null && element.Displayed && element.Enabled)
+                    if (element is { Displayed: true, Enabled: true })
                     {
                         return element;
                     }
 
-                    return null;
+                    return null!;
                 }
                 catch (StaleElementReferenceException)
                 {
-                    return null;
+                    return null!;
                 }
             };
         }
 
-        public static Func<IWebDriver, bool> StalenessOf(IWebElement element)
+        public static Func<IWebDriver, bool> StalenessOf(IWebElement? element)
         {
             return delegate
             {
@@ -319,12 +339,12 @@ namespace Helpers
 
         public static Func<IWebDriver, bool> ElementToBeSelected(IWebElement element, bool selected)
         {
-            return (IWebDriver driver) => element.Selected == selected;
+            return (_) => element.Selected == selected;
         }
 
         public static Func<IWebDriver, bool> ElementSelectionStateToBe(IWebElement element, bool selected)
         {
-            return (IWebDriver driver) => element.Selected == selected;
+            return (_) => element.Selected == selected;
         }
 
         public static Func<IWebDriver, bool> ElementToBeSelected(By locator)
@@ -347,9 +367,9 @@ namespace Helpers
             };
         }
 
-        private static IWebElement ElementIfVisible(IWebElement element)
+        private static IWebElement? ElementIfVisible(IWebElement? element)
         {
-            if (!element.Displayed)
+            if (!element!.Displayed)
             {
                 return null;
             }
